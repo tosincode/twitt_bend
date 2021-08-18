@@ -69,16 +69,16 @@ class UserController extends Controller
 
         $token = JWTAuth::fromUser($user);
 
-        // $details = [
-        //     'title' => 'Congratulations',
-        //     'body' => 'You are welcome to Twitee'
-        // ];
+        $details = [
+            'title' => 'Congratulations',
+            'body' => 'You are welcome to Twitee'
+        ];
 
      
 
-        // Mail::to('faloduntosin0@gmail.com')->send(new welcomEmail($details));
+        Mail::to('faloduntosin0@gmail.com')->send(new welcomEmail($details));
        
-       // \Mail::to('faloduntosin0@gmail.com')->send(new \App\Mail\WelcomeEmail($details));
+      
        
        
 
