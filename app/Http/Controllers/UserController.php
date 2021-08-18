@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\welcomEmail;
+
 
 class UserController extends Controller
 {
@@ -23,15 +27,20 @@ class UserController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
-        // return ["result" => $token];
+         //return ["result" => $token];
 
-        // // $response = ["message" =>  $message];
-        // // return response()->json([
-            
-        // //     'message' => 'Successful'
-        // //   ], 200);
+        //$response = ["message" =>  $message];
+        // return response()->json([
+        //     "result" => $token,
+        //     'message' => 'Successful'
+        //   ], 200);
+
+        return response()->json([
+            "result" => $token,
+            'message' => 'Successful'
+          ], 200);
         
-        return response()->json(compact('token'));
+       // return response()->json(compact('token'));
     }
 
     public function register(Request $request)
@@ -60,8 +69,23 @@ class UserController extends Controller
 
         $token = JWTAuth::fromUser($user);
 
-        // return response()->json(compact('user','token'),201);
-        return ["result" => $token];
+        $details = [
+            'title' => 'Congratulations',
+            'body' => 'You are welcome to Twitee'
+        ];
+
+       // $user_email = $request->get('email');
+
+        Mail::to('faloduntosin0@gmail.com')->send(new welcomEmail($details));
+       
+       // \Mail::to('faloduntosin0@gmail.com')->send(new \App\Mail\WelcomeEmail($details));
+       
+       
+
+        return response()->json([
+                "result" => $token,
+                'message' => 'Successful'
+              ], 200);
     }
 
     public function getAuthenticatedUser()

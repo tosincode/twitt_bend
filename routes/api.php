@@ -17,16 +17,18 @@ use App\Http\Controllers\PostController;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 
 Route::post("register", [UserController::class, 'register']);
 
 Route::post("login", [UserController::class, 'authenticate']);
 
 Route::post("post", [PostController::class, 'create']);
+Route::get("getpost", [PostController::class, 'getpost']);
+Route::post("like_post", [PostController::class, 'likepost']);
+
+
+Route::get("user", [UserController::class, 'getAuthenticatedUser']);
+
 
 
 
